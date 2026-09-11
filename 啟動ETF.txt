@@ -1,0 +1,157 @@
+對，**你貼的那一段本身就是安裝／啟動步驟**。
+
+我上一則回答讓你誤以為「還要另外等我一步一步帶」，這是我表達不清楚。
+
+你現在如果要照 ZIP 開始安裝，**就直接按照下面順序做即可**：
+
+### 第 1 步：解壓縮
+
+把：
+
+[下載 `etf-strategy.zip`](sandbox:/mnt/data/etf-strategy.zip)
+
+解壓到：
+
+```text
+C:\xampp\htdocs\etf-strategy
+```
+
+確認裡面直接看到：
+
+```text
+C:\xampp\htdocs\etf-strategy\artisan
+C:\xampp\htdocs\etf-strategy\composer.json
+C:\xampp\htdocs\etf-strategy\app
+C:\xampp\htdocs\etf-strategy\database
+```
+
+**不要再執行：**
+
+```bat
+laravel new etf-strategy --jet
+```
+
+---
+
+### 第 2 步：開 CMD
+
+```bat
+cd C:\xampp\htdocs\etf-strategy
+```
+
+---
+
+### 第 3 步：安裝 Composer 套件
+
+```bat
+composer install
+```
+
+---
+
+### 第 4 步：建立 `.env`
+
+```bat
+copy .env.example .env
+```
+
+---
+
+### 第 5 步：產生 Laravel Key
+
+```bat
+php artisan key:generate
+```
+
+---
+
+### 第 6 步：建立 MySQL Database
+
+先開 XAMPP，啟動：
+
+```text
+Apache
+MySQL
+```
+
+然後進 phpMyAdmin 建立：
+
+```sql
+CREATE DATABASE etf_strategy
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+```
+
+---
+
+### 第 7 步：設定 `.env`
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=etf_strategy
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+如果你的 XAMPP MySQL root 有設定密碼，就填入實際密碼。
+
+---
+
+### 第 8 步：建立資料表
+
+```bat
+php artisan migrate
+```
+
+---
+
+### 第 9 步：第一次抓 TWSE 真實資料
+
+```bat
+php artisan etf:fetch
+```
+
+這一步非常重要。
+
+**如果成功，我們才繼續測 Dashboard。**
+
+---
+
+### 第 10 步：啟動 Laravel
+
+```bat
+php artisan serve
+```
+
+瀏覽器開：
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+### 第 11 步：啟動 5 分鐘排程
+
+再開一個 CMD：
+
+```bat
+cd C:\xampp\htdocs\etf-strategy
+php artisan schedule:work
+```
+
+看到 Scheduler 持續運作即可。
+
+---
+
+所以你的理解是對的：
+
+> **ZIP → 解壓縮 → composer install → `.env` → MySQL → migrate → `etf:fetch` → Dashboard → schedule:work**
+
+而且我們**不要一次做到最後才檢查**。
+
+我建議你現在就做到 **第 3 步 `composer install`**。
+
+如果出現任何錯誤，把 CMD 畫面直接貼給我，我們就從那一行繼續處理。

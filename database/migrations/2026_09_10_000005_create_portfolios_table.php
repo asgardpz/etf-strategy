@@ -1,0 +1,3 @@
+<?php
+use Illuminate\Database\Migrations\Migration; use Illuminate\Database\Schema\Blueprint; use Illuminate\Support\Facades\Schema;
+return new class extends Migration { public function up(): void { Schema::create('portfolios', function(Blueprint $table){$table->id();$table->foreignId('etf_id')->constrained()->cascadeOnDelete();$table->unsignedInteger('shares');$table->decimal('purchase_price',12,4);$table->date('purchase_date');$table->boolean('dividend_received')->default(false);$table->decimal('dividend_received_amount',14,2)->default(0);$table->string('status',20)->default('holding');$table->text('notes')->nullable();$table->timestamps();$table->index(['status','dividend_received']);}); } public function down(): void {Schema::dropIfExists('portfolios');} };
