@@ -5,10 +5,6 @@
 ![ETF Strategy Dashboard](https://github.com/asgardpz/etf-strategy/blob/main/messageImage_1789016191008.jpg)
 
 
-# ETF Strategy｜Laravel + TWSE Real Data
-
-> **ETF 配息策略監控系統**
->
 > A Laravel-based ETF dividend strategy monitoring system integrating real-time Taiwan Stock Exchange (TWSE) data with server-side data collection, MySQL persistence, automated scheduling, and investment strategy calculation.
 
 ![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
